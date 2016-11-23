@@ -1,5 +1,5 @@
-git clone <repo link>: Clones repo into directory
-git status: Displays which files aren't tracked or arent' commited
+git clone <repo link>: Copies repo into file directory
+git status: Displays which files aren't tracked or committed
 git init: Initializes current directory as git directory
 git add: Specifies which files git should track
 git commit: Specifies which files are to be changed and saved
