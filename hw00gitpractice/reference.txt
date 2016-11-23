@@ -1,1 +1,6 @@
-test
+git clone <repo link>: Clones repo into directory
+git status: Displays which files aren't tracked or arent' commited
+git init: Initializes current directory as git directory
+git add: Specifies which files git should track
+git commit: Specifies which files are to be changed and saved
+git push: Pushes changed files into repo (non-local)
