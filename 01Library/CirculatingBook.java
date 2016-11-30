@@ -21,4 +21,14 @@ public class CirculatingBook extends LibraryBook {
     public String getDueDate(){
 	return dueDate;
     }
+
+    public void checkout(String patron, String due){
+	setCurrentHolder(patron);
+	setDueDate(due);
+    }
+
+    public void returned(){
+	setCurrentHolder(null);
+	setDueDate(null);
+    }
 }
