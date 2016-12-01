@@ -31,11 +31,4 @@ public class CirculatingBook extends LibraryBook {
 	setCurrentHolder(null);
 	setDueDate(null);
     }
-
-    public String circulationStatus(){
-	String ret = "";
-	ret += "Current Holder: " + getCurrentHolder() + '\n';
-	ret += "Due Date: " + getDueDate() + '\n';
-	return ret;
-    }
 }

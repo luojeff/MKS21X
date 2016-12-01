@@ -38,9 +38,9 @@ public class Book {
 
     public String toString(){
 	String ret = "";
-	ret += "Title: " + title + '\n';
-	ret += "Author: " + author + '\n';
-	ret += "ISBN: " + ISBN + '\n';
+	ret += "\nTitle: " + title;
+	ret += "\nAuthor: " + author;
+	ret += "\nISBN: " + ISBN;
 	return ret;
     }
 }

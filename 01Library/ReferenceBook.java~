@@ -30,7 +30,7 @@ public class ReferenceBook extends LibraryBook {
     public String toString(){
 	String ret = "";
 	ret += '\n' + super.toString();
-	ret += "Collection: " + getCollection() + '\n';
+	ret +=        getCollection();
 	return ret;
     }
 }
