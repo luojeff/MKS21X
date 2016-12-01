@@ -1,6 +1,0 @@
-public class Tester {
-    public static void main(String[] args){
-	ReferenceBook a = new ReferenceBook("aut","title","isbn","calln","coll");
-	System.out.println(a.toString());
-    }
-}
