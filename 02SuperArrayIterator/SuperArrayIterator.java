@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SuperArrayIterator implements Iterator<String> {
     public int count;
@@ -13,7 +14,11 @@ public class SuperArrayIterator implements Iterator<String> {
     }
 
     public String next(){
-	return sa.get(count++);
+        if(hasNext()){
+	    return sa.get(count);
+	} else {
+	    throw new NoSuchElementException();
+	}
     }
 
     public void remove(){};
