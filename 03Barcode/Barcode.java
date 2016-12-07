@@ -24,19 +24,58 @@ public class Barcode implements Comparable<Barcode>{
     }
 
     public String toString(){
-	String ret = _zip + checkSum() + ':' + getCode();
+	String ret = _zip + checkSum() + "  |" + getCode() + '|';
+	return ret;
     }
 
-    public String getCode(
-
-    public String getBars(int input){
-	switch(input) {
-	case 1: return ":::||";
-	case 2: return "::|:|"; 
+    private String getCode(){
+	String ret = "";
+	for(int i = 0; i < _zip.length(); i++){
+	    ret += getBars(Integer.parseInt(_zip.substring(i,i+1)));
 	}
+	return ret;
+    }
+
+    // returns zip + checksum
+    public String ZC(){
+	return _zip + checkSum();
+    }
+
+    private String getBars(int input){
+	String ret = "";
+	switch(input) {
+	case 1: ret = ":::||";
+	    break;
+	case 2: ret = "::|:|";
+	    break;
+	case 3: ret = "::||:";
+	    break;
+	case 4: ret = ":|::|";
+	    break;
+	case 5: ret = ":|:|:";
+	    break;
+	case 6: ret = ":||::";
+	    break;
+	case 7: ret = "|:::|";
+	    break;
+	case 8: ret = "|::|:";
+	    break;
+	case 9: ret = "|:|::";
+	    break;
+	case 0: ret = "||:::|";
+	    break;
+	}
+	return ret;
     }
 
     public int compareTo(Barcode other){
-	return -1;
+        return Integer.parseInt(this.ZC()) - Integer.parseInt(other.ZC());
+    }
+
+    public static void main(String[] args){
+	Barcode a = new Barcode("11111");
+	Barcode b = new Barcode("12345");
+	System.out.println(a);
+	System.out.println(a.compareTo(b));
     }
 }
