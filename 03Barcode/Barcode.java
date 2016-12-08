@@ -3,31 +3,43 @@ public class Barcode implements Comparable<Barcode>{
     private int _checkDigit;
 
     public Barcode(String zip){
-	if(zip.length() == 5){
-	    _zip = zip;
-	    // add check for nondigit arguments
-	} else {
+	if(zip.length() != 5 || containsDigits(zip) == false){
 	    throw new IllegalArgumentException();
 	}
+
+	_zip = zip;
+	_checkDigit = checkSum() % 10;
+    }
+
+    // used for constructor
+    private boolean containsDigits(String s){
+	for(int i = 0; i < s.length(); i++){
+	    if(!(Character.isDigit(s.charAt(i)))){
+		return false;
+	    }
+	}
+	return true;
     }
 
     public Barcode clone(){
 	return new Barcode(_zip);
     }
 
+    // returns integer sum of digits of string
     private int checkSum(){
 	int sum = 0;
 	for(int i = 0; i < _zip.length(); i++){
 	    sum += Character.getNumericValue(_zip.charAt(i));
 	}
-	return sum % 10;
+	return sum;
     }
 
     public String toString(){
-	String ret = _zip + checkSum() + "  |" + getCode() + '|';
+	String ret = _zip + _checkDigit + "  |" + getCode() + '|';
 	return ret;
     }
 
+    // returns string containing bar representation
     private String getCode(){
 	String ret = "";
 	for(int i = 0; i < _zip.length(); i++){
@@ -36,9 +48,9 @@ public class Barcode implements Comparable<Barcode>{
 	return ret;
     }
 
-    // returns zip + checksum
+    // returns zip + checkdigit
     public String ZC(){
-	return _zip + checkSum();
+	return _zip + _checkDigit;
     }
 
     private String getBars(int input){
@@ -69,13 +81,22 @@ public class Barcode implements Comparable<Barcode>{
     }
 
     public int compareTo(Barcode other){
-        return Integer.parseInt(this.ZC()) - Integer.parseInt(other.ZC());
+        return (this.ZC()).compareTo(other.ZC());
     }
 
+    // test cases
     public static void main(String[] args){
-	Barcode a = new Barcode("11111");
-	Barcode b = new Barcode("12345");
+	Barcode a = new Barcode("19283");
+	Barcode b = new Barcode("33333");
+	Barcode c = b.clone();
+	
+	// Both return errors
+	// Barcode d = new Barcode("8392a"); invalid characters
+	// Barcode e = new Barcode("12345678"); too long
+	// Barcode f = new Barcode("123"); too short
+	
 	System.out.println(a);
 	System.out.println(a.compareTo(b));
+	System.out.println(c.compareTo(b));	
     }
 }
