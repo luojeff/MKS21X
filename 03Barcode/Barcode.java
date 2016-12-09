@@ -8,7 +8,7 @@ public class Barcode implements Comparable<Barcode>{
 	}
 
 	_zip = zip;
-	_checkDigit = checkSum() % 10;
+	_checkDigit = checkSum();
     }
 
     // used for constructor
@@ -20,18 +20,14 @@ public class Barcode implements Comparable<Barcode>{
 	}
 	return true;
     }
-
-    public Barcode clone(){
-	return new Barcode(_zip);
-    }
-
+    
     // returns integer sum of digits of string
     private int checkSum(){
 	int sum = 0;
 	for(int i = 0; i < _zip.length(); i++){
 	    sum += Character.getNumericValue(_zip.charAt(i));
 	}
-	return sum;
+	return sum % 10;
     }
 
     public String toString(){
@@ -45,6 +41,7 @@ public class Barcode implements Comparable<Barcode>{
 	for(int i = 0; i < _zip.length(); i++){
 	    ret += getBars(Integer.parseInt(_zip.substring(i,i+1)));
 	}
+	ret += getBars(checkSum());
 	return ret;
     }
 
@@ -74,7 +71,7 @@ public class Barcode implements Comparable<Barcode>{
 	    break;
 	case 9: ret = "|:|::";
 	    break;
-	case 0: ret = "||:::|";
+	case 0: ret = "||:::";
 	    break;
 	}
 	return ret;
@@ -88,7 +85,6 @@ public class Barcode implements Comparable<Barcode>{
     public static void main(String[] args){
 	Barcode a = new Barcode("19283");
 	Barcode b = new Barcode("33333");
-	Barcode c = b.clone();
 	
 	// Both return errors
 	// Barcode d = new Barcode("8392a"); invalid characters
@@ -97,6 +93,6 @@ public class Barcode implements Comparable<Barcode>{
 	
 	System.out.println(a);
 	System.out.println(a.compareTo(b));
-	System.out.println(c.compareTo(b));	
+	System.out.println(b.compareTo(b));	
     }
 }
