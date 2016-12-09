@@ -3,7 +3,7 @@ public class Barcode implements Comparable<Barcode> {
     private int _checkDigit;
 
     public Barcode(String zip){
-	if(zip.length() != 5 || containsDigits(zip) == false){
+	if(zip.length() != 5 || containsAllDigits(zip) == false){
 	    throw new IllegalArgumentException();
 	}
 
@@ -12,7 +12,7 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     // Used for constructor
-    private boolean containsDigits(String s){
+    private boolean containsAllDigits(String s){
 	for(int i = 0; i < s.length(); i++){
 	    if(!(Character.isDigit(s.charAt(i)))){
 		return false;
@@ -38,7 +38,7 @@ public class Barcode implements Comparable<Barcode> {
 	    "|::|:","|:|::","||:::"
 	};
 	
-	if(barCode.length() % 5 != 2){
+	if(barCode.length() != 32){
 	    throw new IllegalArgumentException("Barcode length invalid!");
 	} else if (barCode.charAt(0) != '|' || barCode.charAt(barCode.length()-1) != '|'){
 	    throw new IllegalArgumentException("Barcode must begin and end with a bar!");
@@ -67,11 +67,18 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     public String toString(){
-	return  _zip + _checkDigit + "  |" + getCode() + '|';
+	return  _zip + _checkDigit + " " + getCode();
     }
 
-    public String toCode(){
-	return '|' + getCode() + '|';
+    public static String toCode(String zip){
+	String ret = "";
+	int _checkDigit = checkSum(zip);
+	String _zip = zip + _checkDigit;
+
+	for(int i = 0; i < _zip.length(); i++){
+	    ret += getBars(Integer.parseInt(_zip.substring(i,i+1)));
+	}
+	return '|' + ret + '|';
     }
 
     // Returns string containing bar representation
@@ -81,7 +88,7 @@ public class Barcode implements Comparable<Barcode> {
 	    ret += getBars(Integer.parseInt(zipAndCheck().substring(i,i+1)));
 	}
 	ret += getBars(checkSum(_zip));
-	return ret;
+	return '|' + ret + '|';
     }
 
     // Returns zip + checkdigit
@@ -89,7 +96,7 @@ public class Barcode implements Comparable<Barcode> {
 	return _zip + _checkDigit;
     }
 
-    private String getBars(int input){
+    private static String getBars(int input){
 	String ret = "";
 	switch(input) {
 	case 1: ret = ":::||"; break;
@@ -115,6 +122,7 @@ public class Barcode implements Comparable<Barcode> {
 	Barcode a = new Barcode("19283");
 	Barcode b = new Barcode("33333");
 	Barcode c = new Barcode("55102");
+	Barcode d = new Barcode("12345");
 	
 	// Returns errors
 	// Barcode d = new Barcode("8392a"); invalid characters
@@ -126,9 +134,11 @@ public class Barcode implements Comparable<Barcode> {
 	System.out.println(c);
 	System.out.println(a.compareTo(b));
 	System.out.println(c.compareTo(b));
-	System.out.println(a.toCode());
-	System.out.println(b.toCode());
+	System.out.println(Barcode.toCode("12345"));
+	System.out.println(d);
+	System.out.println(Barcode.toCode("98765"));
 	System.out.println(Barcode.toZip("|:::||:::||:::||:::||:::||:|:|:|"));
+	System.out.println(Barcode.toZip("|:::||::|:|::||::|::|:|:|::|:|:|"));
 	// System.out.println(Barcode.toZip("|:::||:::||:::||:::||:::||:::|||")); checksum error
     }
 }
