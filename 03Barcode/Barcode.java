@@ -123,12 +123,11 @@ public class Barcode implements Comparable<Barcode> {
 
     // test cases
     public static void main(String[] args){
-	Barcode a = new Barcode("19283");
-	Barcode b = new Barcode("33333");
-	Barcode c = new Barcode("55102");
-	Barcode d = new Barcode("12345");
+	Barcode a = new Barcode("11111");
+	Barcode b = new Barcode("13579");
+	Barcode c = new Barcode("38265");
+	Barcode d = new Barcode("00230");
 	
-	// Returns errors
 	// Barcode d = new Barcode("8392a"); invalid characters
 	// Barcode e = new Barcode("12345678"); too long
 	// Barcode f = new Barcode("123"); too short
@@ -136,13 +135,20 @@ public class Barcode implements Comparable<Barcode> {
 	System.out.println(a);
 	System.out.println(b);
 	System.out.println(c);
-	System.out.println(a.compareTo(b));
-	System.out.println(c.compareTo(b));
-	System.out.println(Barcode.toCode("12345"));
 	System.out.println(d);
-	System.out.println(Barcode.toCode("98765"));
+	
+	System.out.println(a.compareTo(b));
+	System.out.println(d.compareTo(c));
+	System.out.println(c.compareTo(d));
+
+	System.out.println('\n');
+	System.out.println(Barcode.toCode("11111")); // same as b	
+	System.out.println(Barcode.toCode("13579"));
+	// System.out.println(Barcode.toCode("123a4"));
+	
 	System.out.println(Barcode.toZip("|:::||:::||:::||:::||:::||:|:|:|"));
 	System.out.println(Barcode.toZip("|:::||::|:|::||::|::|:|:|::|:|:|"));
+	System.out.println(Barcode.toZip("|:::||::||::|:|:|:::||:|:::|:|:|"));
 	// System.out.println(Barcode.toZip("|:::||:::||:::||:::||:::||:::|||")); checksum error
     }
 }
