@@ -21,7 +21,7 @@ public class Barcode implements Comparable<Barcode> {
 	return true;
     }
     
-    // Returns integer sum of digits of string
+    // Returns integer sum of digits of string modulo 10
     private static int checkSum(String s){
 	int sum = 0;
 	for(int i = 0; i < s.length(); i++){
