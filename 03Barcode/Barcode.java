@@ -3,7 +3,7 @@ public class Barcode implements Comparable<Barcode> {
     private int _checkDigit;
 
     public Barcode(String zip){
-	if(zip.length() != 5 || containsAllDigits(zip) == false){
+	if(zip.length() != 5 || onlyDigits(zip) == false){
 	    throw new IllegalArgumentException();
 	}
 
@@ -12,7 +12,7 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     // Used for constructor
-    private boolean containsAllDigits(String s){
+    private static boolean onlyDigits(String s){
 	for(int i = 0; i < s.length(); i++){
 	    if(!(Character.isDigit(s.charAt(i)))){
 		return false;
@@ -49,7 +49,7 @@ public class Barcode implements Comparable<Barcode> {
 	}
 
 	if(retZip.substring(0,5).indexOf('0') != -1){
-	    throw new IllegalArgumentException("Invalid character! Input must consist of bars only!");
+	    throw new IllegalArgumentException("Invalid sequence. Corresponding numbers not found!");
 	} else if (checkSum(retZip.substring(0,5)) != Character.getNumericValue(retZip.charAt(5))){
 	    throw new IllegalArgumentException("Checksum doesn't match!");
 	}
@@ -67,7 +67,7 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     public String toString(){
-	return  _zip + _checkDigit + " " + getCode();
+	return  _zip + _checkDigit + "  " + getCode();
     }
 
     public static String toCode(String zip){
@@ -75,6 +75,10 @@ public class Barcode implements Comparable<Barcode> {
 	int _checkDigit = checkSum(zip);
 	String _zip = zip + _checkDigit;
 
+	if(zip.length() != 5 || onlyDigits(zip) == false){
+	    throw new IllegalArgumentException("Zip must be five digits and contain only digits");
+	}
+	
 	for(int i = 0; i < _zip.length(); i++){
 	    ret += getBars(Integer.parseInt(_zip.substring(i,i+1)));
 	}
