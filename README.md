@@ -1,3 +1,2 @@
 # MKS21X
-<p> Homeworks and labs </p>
-<a href="luojeffrey@yahoo.com">
+<p> Homeworks and labs for APCS </p>
