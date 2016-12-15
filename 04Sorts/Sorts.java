@@ -25,11 +25,32 @@ public class Sorts {
 	    data[indexToReplace] = old;
 	}
     }
+
+    public static void insertionSort(int[] data){
+	for(int i = 1; i < data.length; i++){
+	    int indexToSet = 0;
+	    int prev = data[i];
+	    
+	    for(int j = i-1; j >= 0; j--){
+		if(data[i] > data[j]){
+		    indexToSet = j+1;
+		    j = -1;
+		}
+	    }
+	    
+	    for(int k = i-1; k >= indexToSet; k--){
+		data[k+1] = data[k];
+	    }
+
+	    data[indexToSet] = prev;
+	}
+	
+    }
     
     public static void main(String[] args){
-	int[] data = {64,25,12,22,11,37,99,200,1};
+	int[] data = {100,25,96,-5,13,45,101,5,0};
 
-	selectionSort(data);
+	insertionSort(data);
 	for(int i : data){
 	    System.out.println(i);
 	}
