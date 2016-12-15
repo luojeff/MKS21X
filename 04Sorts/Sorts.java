@@ -46,11 +46,29 @@ public class Sorts {
 	}
 	
     }
+
+    public static void bubbleSort(int[] data){
+	boolean finished = false;
+	
+        while(!finished){
+	    finished = true;
+
+	    for(int i = 0; i < data.length-1; i++){
+		if(data[i] > data[i+1]){
+		    int prev = data[i];
+		    data[i] = data[i+1];
+		    data[i+1] = prev;
+
+		    finished = false;
+		}
+	    }
+	}
+    }
     
     public static void main(String[] args){
-	int[] data = {100,25,96,-5,13,45,101,5,0};
+	int[] data = {100,25,96,-5,13,45,101,5,0,111};
 
-	insertionSort(data);
+	bubbleSort(data);
 	for(int i : data){
 	    System.out.println(i);
 	}
